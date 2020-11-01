@@ -2,7 +2,7 @@ import discord
 from discord.ext import tasks
 import time
 
-target_channel = 771402388116471870
+target_channel = 772381855575441428
 
 class CustomClient(discord.Client):
     async def on_ready(self):
@@ -21,7 +21,7 @@ class CustomClient(discord.Client):
                 file.write(f'{x-1}:\n\n')
         
     async def on_message(self, message):
-        if(message.author == self.user):
+        if(message.author == self.user or message.channel == client.get_channel(target_channel)):
             return
         with open('log.txt', 'a') as file:
             file.write(f'{message.author}: {message.content} || {message.created_at}\n\n')
@@ -33,10 +33,10 @@ client = CustomClient()
 async def kuma_time():
     kuma_channel = client.get_channel(target_channel)
     if(time.gmtime().tm_hour == 16 and time.gmtime().tm_min == 30):
-        await kuma_channel.send('Mm, ahem, this is a school announcement. It is now 10 p.m.\nAs such, it is officially nighttime.\nSoon the doors to the dining hall will be locked and entry beyond that point is strictly prohibited.\nOkay then...sweet dreams, everyone! Good night, sleep tight, don\'t let the bed bugs bite...')
+        await kuma_channel.send('Mm, ahem, this is a school announcement. It is now 10 p.m.\nAs such, it is officially nighttime.\nSoon the doors to the dining hall will be locked and entry beyond that point is strictly prohibited.\nOkay then...sweet dreams, everyone! Good night, sleep tight, don\'t let the bed bugs bite...\n@everyone')
         print('Goodnight Kuma')
     if(time.gmtime().tm_hour == 1 and time.gmtime().tm_min == 30):
-        await kuma_channel.send('Good morning, everyone! It is now 7 a.m. and nighttime is officially over! Time to rise and shine!\nGet ready to greet another beee-yutiful day!')
+        await kuma_channel.send('Good morning, everyone! It is now 7 a.m. and nighttime is officially over! Time to rise and shine!\nGet ready to greet another beee-yutiful day!\n@everyone')
         print('Goodmorning kuma')
         with open('log.txt', 'w') as file:
             x = time.gmtime().tm_yday
